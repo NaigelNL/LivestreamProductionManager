@@ -1,5 +1,4 @@
 ﻿using LivestreamProductionManager.Implementations.SuperSmashBros;
-using LivestreamProductionManager.ViewModels.FightingGames;
 using LivestreamProductionManager.ViewModels.FightingGames.SuperSmashBros;
 using LivestreamProductionManager.ViewModels.SuperSmashBros;
 using System;
@@ -43,12 +42,13 @@ namespace LivestreamProductionManager.Controllers
             {
                 _smashOverlayManager.UpdateSinglesOverlay(singlesViewModel);
 
-                return Json(new SnackbarViewModel(true, "Successfully saved competitor files"), JsonRequestBehavior.DenyGet);
+                return DisplayMessage(true, "Successfully saved competitor files");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                return Json(new SnackbarViewModel(false, "Something went wrong while saving competitor files, see the console for details", ex.Message), JsonRequestBehavior.DenyGet);
+                System.Diagnostics.Debug.WriteLine(ex);
+
+                return DisplayMessage(false, "Something went wrong while saving competitor files, see the console for details: " + ex.Message);
             }
         }
 
@@ -59,34 +59,27 @@ namespace LivestreamProductionManager.Controllers
             {
                 _smashOverlayManager.UpdateDoublesOverlay(doublesViewModel);
 
-                return Json(new SnackbarViewModel(true, "Successfully saved competitor files"), JsonRequestBehavior.DenyGet);
+                return DisplayMessage(true, "Successfully saved competitor files");
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                return Json(new SnackbarViewModel(false, "Something went wrong while saving competitor files, see the console for details", ex.Message), JsonRequestBehavior.DenyGet);
+                System.Diagnostics.Debug.WriteLine(ex);
+
+                return DisplayMessage(false, "Something went wrong while saving competitor files, see the console for details: " + ex.Message);
             }
         }
 
         [HttpPost]
         public JsonResult UpdateCrews(CrewsViewModel crewsViewModel)
         {
-            try
+            if (crewsViewModel.Crew1.Players == null || crewsViewModel.Crew2.Players == null)
             {
-                if (crewsViewModel.Crew1.Players == null || crewsViewModel.Crew2.Players == null)
-                {
-                    throw new ArgumentNullException("One of the players is null");
-                }
-
-                //Save files
-
-                return Json(new SnackbarViewModel(true, "Successfully saved competitor files"), JsonRequestBehavior.DenyGet);
+                return DisplayMessage(false, "Crew 1 or 2 players is null");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return Json(new SnackbarViewModel(false, "Something went wrong while saving competitor files, see the console for details", ex.Message), JsonRequestBehavior.DenyGet);
-            }
+
+            //Save files
+
+            return DisplayMessage(true, "Successfully saved competitor files");
         }
 
     }

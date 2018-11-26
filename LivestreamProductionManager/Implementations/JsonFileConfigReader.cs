@@ -22,8 +22,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -38,8 +37,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -54,8 +52,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -70,8 +67,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -86,8 +82,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
     }

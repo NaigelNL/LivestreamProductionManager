@@ -1,6 +1,4 @@
 ﻿using LivestreamProductionManager.ViewModels.Commentators;
-using LivestreamProductionManager.ViewModels.FightingGames;
-using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -16,22 +14,26 @@ namespace LivestreamProductionManager.Controllers
         [HttpPost]
         public JsonResult UpdateCommentators(List<CommentatorViewModel> commentatorViewModels)
         {
-            try
+            if (commentatorViewModels == null)
             {
-                if (commentatorViewModels == null)
+                return DisplayMessage(false, "Commentator list was null");
+            }
+
+            if (commentatorViewModels.Count == 0)
+            {
+                return DisplayMessage(false, "Commentator list count is 0");
+            }
+
+            for (int i = 0; i < commentatorViewModels.Count; i++)
+            {
+                if (string.IsNullOrEmpty(commentatorViewModels[i].Name))
                 {
-                    throw new ArgumentException("variable CommentatorViewModels was null, this is a bug if the commentators form is not empty.");
+                    return DisplayMessage(false, string.Format("Commentator name of {0} cannot be empty", i));
                 }
-
-                //Save files
-
-                return Json(new SnackbarViewModel(true, "Successfully saved commentator files"), JsonRequestBehavior.DenyGet);
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-                return Json(new SnackbarViewModel(false, "Something went wrong while saving commentator files, see the console for details", ex.Message), JsonRequestBehavior.DenyGet);
-            }
+
+            //Save files
+            return DisplayMessage(true, "Successfully saved commentator files");
         }
     }
 }
