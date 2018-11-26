@@ -13,33 +13,31 @@ namespace LivestreamProductionManager.Implementations.SuperSmashBros
 
         public void WriteSinglesCssFile(string pathToFormat, SinglesCssModel singlesCssModel)
         {
+            var templateCssFile = _templateFileReader.ReadTemplateFile("SuperSmashBros/SuperSmashBrosSinglesTemplate.css");
+            var cssFileContent = _smashTextReplacer.ReplaceCssForSingles(templateCssFile, singlesCssModel);
+
             try
             {
-                var templateCssFile = _templateFileReader.ReadTemplateFile("SuperSmashBros/SuperSmashBrosSinglesTemplate.css");
-                var cssFileContent = _smashTextReplacer.ReplaceCssForSingles(templateCssFile, singlesCssModel);
-
                 File.WriteAllText(HttpContext.Current.Server.MapPath(pathToFormat + "css/content.css"), cssFileContent);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
         public void WriteDoublesCssFile(string pathToFormat, DoublesCssModel doublesCssModel)
         {
+            var templateCssFile = _templateFileReader.ReadTemplateFile("SuperSmashBros/SuperSmashBrosDoublesTemplate.css");
+            var cssFileContent = _smashTextReplacer.ReplaceCssForDoubles(templateCssFile, doublesCssModel);
+
             try
             {
-                var templateCssFile = _templateFileReader.ReadTemplateFile("SuperSmashBros/SuperSmashBrosDoublesTemplate.css");
-                var cssFileContent = _smashTextReplacer.ReplaceCssForDoubles(templateCssFile, doublesCssModel);
-
                 File.WriteAllText(HttpContext.Current.Server.MapPath(pathToFormat + "css/content.css"), cssFileContent);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
     }

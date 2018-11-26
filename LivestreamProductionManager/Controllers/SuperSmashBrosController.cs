@@ -26,8 +26,7 @@ namespace LivestreamProductionManager.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 

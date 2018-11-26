@@ -15,52 +15,42 @@ namespace LivestreamProductionManager.Controllers
 
         public JsonResult GetSeries()
         {
+            var series = _configReader.GetSeries();
             try
             {
-                var series = _configReader.GetSeries();
-
                 return Json(series, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
         public JsonResult GetGames(string pathToSeries)
         {
+            var games = _configReader.GetGames(pathToSeries);
+
             try
             {
-                var games = _configReader.GetGames(pathToSeries);
-
                 return Json(games, JsonRequestBehavior.AllowGet);
-            }
-            catch (FileNotFoundException ex)
-            {
-                Console.WriteLine(ex);
-                throw;
-
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
         public JsonResult GetFormats(string pathToGame)
         {
+            var formats = _configReader.GetFormats(pathToGame);
+
             try
             {
-                var formats = _configReader.GetFormats(pathToGame);
-
                 return Json(formats, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
     }

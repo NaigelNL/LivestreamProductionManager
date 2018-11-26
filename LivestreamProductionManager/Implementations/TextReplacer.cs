@@ -28,8 +28,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -44,29 +43,28 @@ namespace LivestreamProductionManager.Implementations
                 throw new ArgumentException(nameof(id));
             }
 
+            string playerFullName;
+            if (string.IsNullOrEmpty(playerName))
+            {
+                playerName = "???";
+            }
+
+            if (string.IsNullOrEmpty(playerSponsor))
+            {
+                playerFullName = playerName;
+            }
+            else
+            {
+                playerFullName = $"{playerSponsor} | {playerName}";
+            }
+
             try
             {
-                string playerFullName;
-                if (string.IsNullOrEmpty(playerName))
-                {
-                    playerName = "???";
-                }
-
-                if (string.IsNullOrEmpty(playerSponsor))
-                {
-                    playerFullName = playerName;
-                }
-                else
-                {
-                    playerFullName = $"{playerSponsor} | {playerName}";
-                }
-
                 return template.Replace("IDPLACEHOLDER", id).Replace("VALUEPLACEHOLDER", playerFullName);
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -93,8 +91,7 @@ namespace LivestreamProductionManager.Implementations
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
 
@@ -118,15 +115,14 @@ namespace LivestreamProductionManager.Implementations
                 var cssStringBuilder = new StringBuilder();
                 for (int i = 0; i < values.Count; i++)
                 {
-                    cssStringBuilder.AppendLine(ReplaceIdAndValue(template, idTemplate.Replace("*", $"{i+1}"), values[i]));
+                    cssStringBuilder.AppendLine(ReplaceIdAndValue(template, idTemplate.Replace("*", $"{i + 1}"), values[i]));
                 }
 
                 return cssStringBuilder.ToString();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
-                throw;
+                throw ex;
             }
         }
     }
